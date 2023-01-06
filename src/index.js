@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
+import "./index.css";
 import App from "./App";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -18,6 +18,17 @@ const theme = createTheme({
     white: "#FFFFF",
     background: { secondary: "#e6e6e6" },
     textDefault: "#18191F",
+  },
+
+  components: {
+    MuiSection: {
+      styleOverrides: {
+        root: {
+          // display: "none",
+          backgroundColor: "green",
+        },
+      },
+    },
   },
 });
 
