@@ -15,11 +15,19 @@ import { BrowserRouter } from "react-router-dom";
 const theme = createTheme({
   palette: {
     primary: { main: "#f4511e" },
-    white: "#FFFFF",
+    white: "#fff",
     background: { secondary: "#e6e6e6" },
     textDefault: "#18191F",
   },
-
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   components: {
     MuiSection: {
       styleOverrides: {
