@@ -19,24 +19,26 @@ import { styled } from "@mui/system";
 import { PrimaryBtn } from "../App";
 
 function PropertyForm() {
+  const initialValues = {
+    name: "",
+    address: "",
+    unitNumber: "",
+    city: "",
+    state: "",
+    roomType: "",
+    price: "",
+    description: "",
+    // photos: "",
+  };
   const mobileScreen = useMediaQuery("(max-width:800px)");
   const sm = useMediaQuery("(max-width:600px)");
   const BigScreens = useMediaQuery("(min-width:700px)");
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      address: "",
-      unitNumber: null,
-      city: types[0],
-      state: types[0],
-      roomType: neighborhoods[0],
-      price: null,
-      description: "",
-      photos: "",
-    },
-    onSubmit: (values) => {
-      console.log(JSON.parse(values));
-      alert("Congratulations Boss");
+    initialValues: initialValues,
+    onSubmit: (values, { resetForm }) => {
+      resetForm({ values: initialValues });
+      console.log(JSON.stringify(values));
+      alert("Your Response Has Been Recorded");
     },
   });
 
@@ -87,7 +89,7 @@ function PropertyForm() {
       select: false,
       multiline: false,
       value: formik.values.unitNumber,
-      initial: null,
+      initial: "",
       //   defaultValue: "",
 
       config: {
@@ -109,7 +111,7 @@ function PropertyForm() {
       label: "Select City",
       multiline: false,
       value: formik.values.city,
-      initial: types[0],
+      initial: "",
       //   defaultValue: "",
       select: true,
       values: types,
@@ -129,7 +131,7 @@ function PropertyForm() {
       label: "Select State",
       multiline: false,
       value: formik.values.state,
-      initial: types[0],
+      initial: "",
       //   defaultValue: "",
       select: true,
       values: neighborhoods,
@@ -144,12 +146,12 @@ function PropertyForm() {
       },
     },
     {
-      id: "roomTypes",
+      id: "roomType",
       ID: "Room Type",
       label: "Select Room Type",
       multiline: false,
       value: formik.values.roomType,
-      initial: neighborhoods[0],
+      initial: "",
       //   defaultValue: "",
       select: true,
       gridSpan: {
@@ -157,7 +159,7 @@ function PropertyForm() {
         sm: 6,
         lg: 4,
       },
-      values: types,
+      values: neighborhoods,
       config: {
         helperText:
           formik.touched.roomType &&
@@ -173,7 +175,7 @@ function PropertyForm() {
       select: false,
       multiline: false,
       value: formik.values.price,
-      initial: null,
+      initial: "",
       //   defaultValue: "",
       gridSpan: {
         xs: 12,
@@ -241,7 +243,9 @@ function PropertyForm() {
                   {field.ID}
                 </InputLabel>
                 <TextField
+                  value={field.value}
                   id={field.id} //id
+                  name={field.id}
                   required={true}
                   InputLabelProps={{
                     shrink: false,
@@ -293,13 +297,14 @@ function PropertyForm() {
                   {...field.config}
                   select={field.select}
                 >
-                  {field.values?.map((opt, idx) => {
-                    return (
-                      <MenuItem key={idx} value={opt.value}>
-                        {opt.label}
-                      </MenuItem>
-                    );
-                  })}
+                  {field.select &&
+                    field.values.map((opt, idx) => {
+                      return (
+                        <MenuItem key={idx} value={opt.value}>
+                          {opt.label}
+                        </MenuItem>
+                      );
+                    })}
                 </TextField>
               </Box>
             </Grid2>
