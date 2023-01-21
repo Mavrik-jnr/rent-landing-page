@@ -13,7 +13,6 @@ import twelve from "../assets/properties/12.jpg";
 import thirteen from "../assets/properties/13.jpg";
 import fourteen from "../assets/properties/14.jpg";
 import fifteen from "../assets/properties/15.jpg";
-// import sixteen from "../assets/properties/16.jpg";
 
 export const properties = [
   one,
