@@ -17,7 +17,9 @@ import { navigation } from "../utils/navigation";
 import logo from "../assets/Logo.png";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-function Header({ Navbar }) {
+function Header({ Navbar, window }) {
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   const [tab, setTab] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleTabChange = (event, newValue) => {
@@ -170,11 +172,12 @@ function Header({ Navbar }) {
       </AppBar>
       <Box component="nav">
         <Drawer
+          container={container}
           anchor="right"
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          hideBackdrop="true"
+          //   hideBackdrop="true"
           ModalProps={{
             keepMounted: true,
           }}
