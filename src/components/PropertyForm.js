@@ -9,6 +9,7 @@ import {
   FormGroup,
   Grid,
   InputLabel,
+  MenuItem,
   TextField,
   Typography,
   useMediaQuery,
@@ -18,7 +19,7 @@ import { styled } from "@mui/system";
 import { PrimaryBtn } from "../App";
 
 function PropertyForm() {
-  const mobileScreen = useMediaQuery("(max-width:700px)");
+  const mobileScreen = useMediaQuery("(max-width:800px)");
   const sm = useMediaQuery("(max-width:600px)");
   const BigScreens = useMediaQuery("(min-width:700px)");
   const formik = useFormik({
@@ -111,6 +112,7 @@ function PropertyForm() {
       initial: types[0],
       //   defaultValue: "",
       select: true,
+      values: types,
       gridSpan: {
         xs: 12,
         sm: 6,
@@ -130,6 +132,7 @@ function PropertyForm() {
       initial: types[0],
       //   defaultValue: "",
       select: true,
+      values: neighborhoods,
       gridSpan: {
         xs: 12,
         sm: 6,
@@ -154,6 +157,7 @@ function PropertyForm() {
         sm: 6,
         lg: 4,
       },
+      values: types,
       config: {
         helperText:
           formik.touched.roomType &&
@@ -282,13 +286,21 @@ function PropertyForm() {
                   onBlur={formik.handleBlur}
                   SelectProps={{
                     IconComponent: Dropdown,
-                    MenuProps: { disableScrollLock: true },
+                    MenuProps: { disableScrollLock: !mobileScreen && true },
                   }}
                   label={field.value === field.initial && field.label} // REMEMBER TO: !formik.value &&
                   helperText={field.helperText}
                   {...field.config}
                   select={field.select}
-                ></TextField>
+                >
+                  {field.values?.map((opt, idx) => {
+                    return (
+                      <MenuItem key={idx} value={opt.value}>
+                        {opt.label}
+                      </MenuItem>
+                    );
+                  })}
+                </TextField>
               </Box>
             </Grid2>
           );

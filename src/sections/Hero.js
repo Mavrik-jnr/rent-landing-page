@@ -1,4 +1,10 @@
-import { Fab, MenuItem, TextField, Typography } from "@mui/material";
+import {
+  Fab,
+  MenuItem,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { Section } from "../components/Main";
@@ -9,7 +15,7 @@ import { neighborhoods, types } from "../utils/dropdown";
 import { Link as HashLink } from "react-scroll";
 function Hero() {
   const [type, setType] = useState("");
-
+  const mobileScreen = useMediaQuery("(max-width:800px)");
   const [neighborhood, setNeighborhood] = useState("");
   const handleTypeChange = (event) => {
     setType(event.target.value);
@@ -164,7 +170,7 @@ function Hero() {
                 select
                 SelectProps={{
                   IconComponent: Dropdown,
-                  MenuProps: { disableScrollLock: true },
+                  MenuProps: { disableScrollLock: !mobileScreen && true },
                 }}
               >
                 {types.map((item, idx) => {
@@ -215,7 +221,7 @@ function Hero() {
                 select
                 SelectProps={{
                   IconComponent: Dropdown,
-                  MenuProps: { disableScrollLock: true },
+                  MenuProps: { disableScrollLock: !mobileScreen && true },
                 }}
               >
                 {neighborhoods.map((item, idx) => {
